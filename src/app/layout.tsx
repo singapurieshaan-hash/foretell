@@ -2,6 +2,11 @@ import { Sidebar } from "@/components/Sidebar";
 import { Header } from "@/components/Header";
 import "@/globals.css";
 
+export const metadata = {
+  title: "Foretell | Premium Prediction Markets",
+  description: "Trade predictions on the world's most important events",
+};
+
 export default function RootLayout({
   children,
 }: {
