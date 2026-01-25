@@ -33,11 +33,11 @@ export default function MarketDetailPage({
   if (!market) {
     return (
       <div className="p-8">
-        <Link href="/" className="flex items-center gap-2 text-accent mb-6">
+        <Link href="/" className="inline-flex items-center gap-2 text-brand-success hover:text-emerald-600 mb-6 font-600 transition-colors">
           <ArrowLeft className="w-5 h-5" />
           Back to Markets
         </Link>
-        <div className="text-gray-600">Market not found</div>
+        <div className="text-brand-text-secondary">Market not found</div>
       </div>
     );
   }
@@ -157,32 +157,32 @@ export default function MarketDetailPage({
   };
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="p-8 max-w-7xl mx-auto space-y-8">
       {/* Header */}
-      <div>
-        <Link href="/" className="flex items-center gap-2 text-accent mb-4">
+      <div className="space-y-4">
+        <Link href="/" className="inline-flex items-center gap-2 text-brand-success hover:text-emerald-600 font-600 transition-colors">
           <ArrowLeft className="w-5 h-5" />
           Back to Markets
         </Link>
 
-        <div className="space-y-2">
-          <div className="flex items-center gap-3">
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="badge bg-brand-success/10 text-brand-success border border-brand-success/20">
               {market.category}
             </span>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900">{market.title}</h1>
-          <p className="text-gray-600 text-lg">{market.description}</p>
+          <h1 className="text-4xl font-bold text-brand-text">{market.title}</h1>
+          <p className="text-brand-text-secondary text-lg max-w-3xl">{market.description}</p>
         </div>
       </div>
 
       {/* Trade Message */}
       {tradeMessage && (
         <div
-          className={`p-4 rounded-lg ${
+          className={`p-4 rounded-lg border ${
             tradeMessage.type === "success"
-              ? "bg-green-50 text-green-800 border border-green-200"
-              : "bg-red-50 text-red-800 border border-red-200"
+              ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+              : "bg-red-50 text-red-800 border-red-200"
           }`}
         >
           {tradeMessage.message}
@@ -194,19 +194,19 @@ export default function MarketDetailPage({
         {/* Left: Chart */}
         <div className="lg:col-span-2 space-y-6">
           <div className="card">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-900">
-                Probability Chart
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold text-brand-text">
+                Probability Over Time
               </h2>
-              <div className="flex gap-2">
+              <div className="flex gap-2 bg-brand-surface p-1 rounded-lg">
                 {(["1D", "1W", "1M"] as const).map((range) => (
                   <button
                     key={range}
                     onClick={() => setTimeRange(range)}
-                    className={`px-3 py-1 rounded font-medium text-sm transition-colors ${
+                    className={`px-4 py-1.5 rounded font-600 text-sm transition-all duration-200 ${
                       timeRange === range
-                        ? "bg-accent text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        ? "bg-white text-brand-success shadow-xs"
+                        : "text-brand-text-secondary hover:text-brand-text"
                     }`}
                   >
                     {range}

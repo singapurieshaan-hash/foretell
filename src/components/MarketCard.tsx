@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar, Volume2 } from "lucide-react";
+import { Calendar, Volume2, TrendingUp } from "lucide-react";
 import { Market } from "@/types";
 
 interface MarketCardProps {
@@ -24,73 +24,96 @@ export function MarketCard({ market }: MarketCardProps) {
 
   return (
     <Link href={`/markets/${market.id}`}>
-      <div className="card hover:shadow-lg cursor-pointer">
-        {/* Header */}
+      <div className="card group cursor-pointer border-brand-border bg-white hover:border-brand-success/50 hover:shadow-base transition-all duration-300">
+        {/* Category Badge */}
         <div className="flex items-start justify-between mb-4">
-          <h3 className="text-lg font-bold text-gray-900 flex-1 line-clamp-2">
+          <h3 className="text-base font-bold text-brand-text flex-1 line-clamp-2 group-hover:text-brand-success transition-colors">
             {market.title}
           </h3>
-          <span className="ml-2 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium whitespace-nowrap">
+          <span className="ml-3 px-3 py-1 badge whitespace-nowrap text-xs bg-brand-surface text-brand-text-secondary font-500">
             {market.category}
           </span>
         </div>
 
-        {/* Trading Info */}
-        <div className="grid grid-cols-2 gap-4 mb-6 pb-4 border-b border-gray-200">
-          <div>
-            <div className="text-xs text-gray-500 font-medium mb-1">
-              YES Price
+        {/* Probability Display */}
+        <div className="mb-5 pb-5 border-b border-brand-border">
+          <div className="grid grid-cols-2 gap-4">
+            {/* YES Price */}
+            <div className="group/yes">
+              <div className="flex items-center gap-1 mb-2">
+                <div className="w-2 h-2 rounded-full bg-brand-success"></div>
+                <span className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide">YES</span>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-bold text-brand-success">
+                  {market.yesPrice}¢
+                </span>
+                <span className="text-xs text-brand-text-secondary">
+                  {market.yesPrice}%
+                </span>
+              </div>
+              <div className="mt-1 h-1 bg-brand-surface rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-brand-success to-emerald-500 rounded-full"
+                  style={{ width: `${market.yesPrice}%` }}
+                ></div>
+              </div>
             </div>
-            <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-bold text-accent">
-                {market.yesPrice}¢
-              </span>
-              <span className="text-sm text-gray-600">
-                ({market.yesPrice}%)
-              </span>
-            </div>
-          </div>
-          <div>
-            <div className="text-xs text-gray-500 font-medium mb-1">
-              NO Price
-            </div>
-            <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-bold text-error">{noPrice}¢</span>
-              <span className="text-sm text-gray-600">({noPrice}%)</span>
+
+            {/* NO Price */}
+            <div className="group/no">
+              <div className="flex items-center gap-1 mb-2">
+                <div className="w-2 h-2 rounded-full bg-brand-error"></div>
+                <span className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide">NO</span>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-bold text-brand-error">{noPrice}¢</span>
+                <span className="text-xs text-brand-text-secondary">{noPrice}%</span>
+              </div>
+              <div className="mt-1 h-1 bg-brand-surface rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-red-500 to-rose-500 rounded-full"
+                  style={{ width: `${noPrice}%` }}
+                ></div>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="space-y-2 text-sm">
-          <div className="flex items-center gap-2 text-gray-600">
-            <Volume2 className="w-4 h-4" />
-            <span>
-              Volume:{" "}
-              <span className="font-semibold">{formatVolume(market.volume)}</span>
-            </span>
+        <div className="space-y-3 mb-5 pb-5 border-b border-brand-border">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2 text-brand-text-secondary">
+              <Volume2 className="w-4 h-4" />
+              <span>Volume</span>
+            </div>
+            <span className="font-bold text-brand-text">{formatVolume(market.volume)}</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-600">
-            <Calendar className="w-4 h-4" />
-            <span>
-              Ends in{" "}
-              <span className="font-semibold">
-                {daysUntil > 0 ? `${daysUntil} days` : "Ended"}
-              </span>
-            </span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-600 pt-2">
-            <span className="text-xs text-gray-500">
-              Created by{" "}
-              <span className="font-medium text-gray-700">
-                {market.creatorName}
-              </span>
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2 text-brand-text-secondary">
+              <Calendar className="w-4 h-4" />
+              <span>Ends</span>
+            </div>
+            <span className="font-bold text-brand-text">
+              {daysUntil > 0 ? `${daysUntil}d` : "Ended"}
             </span>
           </div>
         </div>
 
-        {/* CTA */}
-        <button className="mt-4 w-full btn-primary">Trade Now</button>
+        {/* Creator */}
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-xs text-brand-text-secondary">
+            By <span className="font-600 text-brand-text">{market.creatorName}</span>
+          </span>
+          <div className="flex items-center gap-1 text-xs text-brand-success opacity-0 group-hover:opacity-100 transition-opacity">
+            Trade <TrendingUp className="w-3 h-3" />
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <button className="w-full bg-brand-success hover:bg-emerald-600 text-white font-bold py-2.5 rounded-lg transition-all duration-200 hover:shadow-sm active:scale-95">
+          Trade
+        </button>
       </div>
     </Link>
   );

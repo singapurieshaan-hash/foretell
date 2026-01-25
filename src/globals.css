@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 * {
   margin: 0;
   padding: 0;
@@ -10,8 +12,8 @@ body {
 }
 
 body {
-  background-color: #ffffff;
-  color: #111827;
+  background-color: #f6f7f9;
+  color: #1f2937;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -19,61 +21,115 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Premium minimalist buttons */
 .btn-primary {
-  padding: 0.5rem 1rem;
+  padding: 0.625rem 1rem;
   background-color: #10b981;
   color: white;
   border-radius: 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .btn-primary:hover {
   background-color: #059669;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .btn-secondary {
-  padding: 0.5rem 1rem;
-  background-color: #f3f4f6;
-  color: #111827;
+  padding: 0.625rem 1rem;
+  background-color: #f6f7f9;
+  color: #1f2937;
   border-radius: 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .btn-secondary:hover {
   background-color: #e5e7eb;
 }
 
+.btn-secondary:active {
+  transform: scale(0.95);
+}
+
 .btn-outline {
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
-  color: #111827;
+  padding: 0.625rem 1rem;
+  border: 1px solid #e1e4e8;
+  color: #1f2937;
   border-radius: 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .btn-outline:hover {
-  background-color: #f9fafb;
+  background-color: #f6f7f9;
 }
 
+.btn-outline:active {
+  transform: scale(0.95);
+}
+
+/* Premium card styling */
 .card {
   background-color: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e1e4e8;
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.2s;
+  transition: all 0.2s;
 }
 
 .card:hover {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
 
 .text-muted {
   color: #6b7280;
 }
+
+.input-premium {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  background-color: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 0.5rem;
+  color: #1f2937;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.input-premium::placeholder {
+  color: #6b7280;
+}
+
+.input-premium:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #f6f7f9;
+  color: #6b7280;
+}
+

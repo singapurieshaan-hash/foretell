@@ -1,4 +1,3 @@
-
 import { Market } from "@/types";
 import {
   Calendar,
@@ -6,6 +5,7 @@ import {
   TrendingUp,
   Award,
   DollarSign,
+  Info,
 } from "lucide-react";
 
 interface MarketInfoProps {
@@ -27,110 +27,136 @@ export function MarketInfo({ market }: MarketInfoProps) {
     return `$${vol.toFixed(2)}`;
   };
 
-  // Estimate creator fees (2% of volume, 50% to creator)
   const estimatedCreatorFees = (market.volume * 0.02 * 0.5).toFixed(2);
 
   return (
-    <div className="card">
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Market Info</h2>
+    <div className="card space-y-8">
+      <h2 className="text-xl font-bold text-brand-text">Market Information</h2>
 
-      <div className="grid grid-cols-2 gap-4">
-        {/* Market Stats */}
+      <div className="grid grid-cols-1 gap-6">
         <div className="space-y-4">
-          <div className="flex items-start gap-3">
-            <TrendingUp className="w-5 h-5 text-accent mt-0.5" />
-            <div>
-              <p className="text-sm text-gray-600 mb-0.5">YES Probability</p>
-              <p className="text-2xl font-bold text-accent">
+          <div className="flex items-start gap-4">
+            <div className="p-2.5 bg-brand-success/10 rounded-lg">
+              <TrendingUp className="w-5 h-5 text-brand-success" />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide mb-1">
+                YES Probability
+              </p>
+              <p className="text-3xl font-bold text-brand-success">
                 {market.yesPrice}%
               </p>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <TrendingUp className="w-5 h-5 text-red-500 mt-0.5" />
-            <div>
-              <p className="text-sm text-gray-600 mb-0.5">NO Probability</p>
-              <p className="text-2xl font-bold text-red-500">
+          <div className="flex items-start gap-4">
+            <div className="p-2.5 bg-brand-error/10 rounded-lg">
+              <TrendingUp className="w-5 h-5 text-brand-error" />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide mb-1">
+                NO Probability
+              </p>
+              <p className="text-3xl font-bold text-brand-error">
                 {100 - market.yesPrice}%
               </p>
             </div>
           </div>
+        </div>
 
-          <div className="flex items-start gap-3">
-            <Volume2 className="w-5 h-5 text-blue-500 mt-0.5" />
-            <div>
-              <p className="text-sm text-gray-600 mb-0.5">Total Volume</p>
-              <p className="text-2xl font-bold text-gray-900">
+        <div className="space-y-4">
+          <div className="flex items-start gap-4">
+            <div className="p-2.5 bg-brand-info/10 rounded-lg">
+              <Volume2 className="w-5 h-5 text-brand-info" />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide mb-1">
+                Total Volume
+              </p>
+              <p className="text-2xl font-bold text-brand-text">
                 {formatVolume(market.volume)}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Dates & Creator */}
         <div className="space-y-4">
-          <div className="flex items-start gap-3">
-            <Calendar className="w-5 h-5 text-orange-500 mt-0.5" />
-            <div>
-              <p className="text-sm text-gray-600 mb-0.5">Market Ends</p>
-              <p className="text-lg font-bold text-gray-900">
+          <div className="flex items-start gap-4">
+            <div className="p-2.5 bg-amber-100 rounded-lg">
+              <Calendar className="w-5 h-5 text-amber-600" />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide mb-1">
+                Market Closes
+              </p>
+              <p className="text-lg font-bold text-brand-text">
                 {market.endDate.toLocaleDateString("en-US", {
                   month: "short",
                   day: "numeric",
                   year: "numeric",
                 })}
               </p>
-              <p className="text-xs text-gray-500">
-                {daysUntil > 0 ? `${daysUntil} days left` : "Ended"}
+              <p className="text-xs text-brand-text-secondary mt-1">
+                {daysUntil > 0 ? `${daysUntil} days remaining` : "Market ended"}
               </p>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <Award className="w-5 h-5 text-purple-500 mt-0.5" />
-            <div>
-              <p className="text-sm text-gray-600 mb-0.5">Created By</p>
-              <p className="font-bold text-gray-900">{market.creatorName}</p>
+          <div className="flex items-start gap-4">
+            <div className="p-2.5 bg-purple-100 rounded-lg">
+              <Award className="w-5 h-5 text-purple-600" />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide mb-1">
+                Created By
+              </p>
+              <p className="font-bold text-brand-text">{market.creatorName}</p>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <DollarSign className="w-5 h-5 text-green-600 mt-0.5" />
-            <div>
-              <p className="text-sm text-gray-600 mb-0.5">Creator Earnings</p>
-              <p className="text-lg font-bold text-green-600">
+          <div className="flex items-start gap-4">
+            <div className="p-2.5 bg-brand-success/10 rounded-lg">
+              <DollarSign className="w-5 h-5 text-brand-success" />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide mb-1">
+                Creator Earnings
+              </p>
+              <p className="text-xl font-bold text-brand-success">
                 ≈${estimatedCreatorFees}
               </p>
-              <p className="text-xs text-gray-500">50% of 2% fees</p>
+              <p className="text-xs text-brand-text-secondary mt-1">50% of 2% fees</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Fee Breakdown */}
-      <div className="border-t border-gray-200 mt-6 pt-6">
-        <h3 className="font-bold text-gray-900 mb-3">Fee Model</h3>
-        <div className="space-y-2 text-sm text-gray-600">
-          <div className="flex justify-between">
-            <span>Trading Fee per Transaction</span>
-            <span className="font-medium text-gray-900">2.0%</span>
+      <div className="border-t border-brand-border pt-8">
+        <h3 className="font-bold text-brand-text mb-4 flex items-center gap-2">
+          <Info className="w-4 h-4" />
+          Fee Structure
+        </h3>
+        <div className="space-y-3 text-sm">
+          <div className="flex justify-between p-3 bg-brand-surface rounded-lg border border-brand-border">
+            <span className="text-brand-text-secondary">Trading Fee per Transaction</span>
+            <span className="font-bold text-brand-text">2.0%</span>
           </div>
-          <div className="flex justify-between text-xs text-gray-500">
-            <span className="ml-4">Market Creator (50%)</span>
-            <span>1.0%</span>
-          </div>
-          <div className="flex justify-between text-xs text-gray-500">
-            <span className="ml-4">Foretell Platform (50%)</span>
-            <span>1.0%</span>
+          <div className="space-y-2 ml-3">
+            <div className="flex justify-between text-xs">
+              <span className="text-brand-text-secondary">Market Creator (50%)</span>
+              <span className="font-bold text-brand-text">1.0%</span>
+            </div>
+            <div className="flex justify-between text-xs">
+              <span className="text-brand-text-secondary">Platform Fee (50%)</span>
+              <span className="font-bold text-brand-text">1.0%</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Description */}
-      <div className="border-t border-gray-200 mt-6 pt-6">
-        <h3 className="font-bold text-gray-900 mb-2">Resolution Criteria</h3>
-        <p className="text-sm text-gray-600 leading-relaxed">
+      <div className="border-t border-brand-border pt-8">
+        <h3 className="font-bold text-brand-text mb-4">Resolution Criteria</h3>
+        <p className="text-sm text-brand-text-secondary leading-relaxed bg-brand-surface p-4 rounded-lg border border-brand-border">
           {market.description}
         </p>
       </div>
