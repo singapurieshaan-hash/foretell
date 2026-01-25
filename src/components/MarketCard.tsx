@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar, Volume2, TrendingUp } from "lucide-react";
+import { Volume2, Clock } from "lucide-react";
 import { Market } from "@/types";
 
 interface MarketCardProps {
@@ -22,98 +22,112 @@ export function MarketCard({ market }: MarketCardProps) {
     (market.endDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)
   );
 
+  const isEnded = daysUntil <= 0;
+
   return (
     <Link href={`/markets/${market.id}`}>
-      <div className="card group cursor-pointer border-brand-border bg-white hover:border-brand-success/50 hover:shadow-base transition-all duration-300">
-        {/* Category Badge */}
-        <div className="flex items-start justify-between mb-4">
-          <h3 className="text-base font-bold text-brand-text flex-1 line-clamp-2 group-hover:text-brand-success transition-colors">
-            {market.title}
-          </h3>
-          <span className="ml-3 px-3 py-1 badge whitespace-nowrap text-xs bg-brand-surface text-brand-text-secondary font-500">
-            {market.category}
-          </span>
-        </div>
+      <div className="group relative h-full cursor-pointer bg-gradient-to-br from-slate-800 to-slate-700/50 border border-emerald-500/20 rounded-xl overflow-hidden hover:border-emerald-500/60 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/20 hover:scale-105 transform">
+        {/* Animated Background Gradient */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-emerald-500/10 to-transparent"></div>
 
-        {/* Probability Display */}
-        <div className="mb-5 pb-5 border-b border-brand-border">
-          <div className="grid grid-cols-2 gap-4">
-            {/* YES Price */}
-            <div className="group/yes">
-              <div className="flex items-center gap-1 mb-2">
-                <div className="w-2 h-2 rounded-full bg-brand-success"></div>
-                <span className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide">YES</span>
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-brand-success">
-                  {market.yesPrice}¢
-                </span>
-                <span className="text-xs text-brand-text-secondary">
-                  {market.yesPrice}%
-                </span>
-              </div>
-              <div className="mt-1 h-1 bg-brand-surface rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-brand-success to-emerald-500 rounded-full"
-                  style={{ width: `${market.yesPrice}%` }}
-                ></div>
-              </div>
+        <div className="relative p-6 space-y-5 h-full flex flex-col backdrop-blur-sm">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors line-clamp-2">
+                {market.title}
+              </h3>
+              <p className="text-xs text-slate-400 mt-1 line-clamp-1">
+                {market.description}
+              </p>
             </div>
-
-            {/* NO Price */}
-            <div className="group/no">
-              <div className="flex items-center gap-1 mb-2">
-                <div className="w-2 h-2 rounded-full bg-brand-error"></div>
-                <span className="text-xs font-bold text-brand-text-secondary uppercase tracking-wide">NO</span>
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-brand-error">{noPrice}¢</span>
-                <span className="text-xs text-brand-text-secondary">{noPrice}%</span>
-              </div>
-              <div className="mt-1 h-1 bg-brand-surface rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-red-500 to-rose-500 rounded-full"
-                  style={{ width: `${noPrice}%` }}
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="space-y-3 mb-5 pb-5 border-b border-brand-border">
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2 text-brand-text-secondary">
-              <Volume2 className="w-4 h-4" />
-              <span>Volume</span>
-            </div>
-            <span className="font-bold text-brand-text">{formatVolume(market.volume)}</span>
-          </div>
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2 text-brand-text-secondary">
-              <Calendar className="w-4 h-4" />
-              <span>Ends</span>
-            </div>
-            <span className="font-bold text-brand-text">
-              {daysUntil > 0 ? `${daysUntil}d` : "Ended"}
+            <span className="ml-2 px-3 py-1.5 whitespace-nowrap text-xs font-bold bg-slate-700/60 border border-emerald-500/30 text-emerald-300 rounded-lg">
+              {market.category}
             </span>
           </div>
-        </div>
 
-        {/* Creator */}
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-xs text-brand-text-secondary">
-            By <span className="font-600 text-brand-text">{market.creatorName}</span>
-          </span>
-          <div className="flex items-center gap-1 text-xs text-brand-success opacity-0 group-hover:opacity-100 transition-opacity">
-            Trade <TrendingUp className="w-3 h-3" />
+          {/* Status Badge */}
+          {isEnded && (
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-red-500/20 border border-red-500/50 rounded-lg w-fit">
+              <div className="w-2 h-2 rounded-full bg-red-400"></div>
+              <span className="text-xs font-bold text-red-300">Ended</span>
+            </div>
+          )}
+
+          {/* Probability Display */}
+          <div className="space-y-4 border-y border-slate-700/50 py-4">
+            <div className="grid grid-cols-2 gap-4">
+              {/* YES Price */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50"></div>
+                  <span className="text-xs font-bold text-emerald-300 uppercase tracking-wider">YES</span>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-3xl font-black bg-gradient-to-r from-emerald-300 to-emerald-400 bg-clip-text text-transparent">
+                      {market.yesPrice}¢
+                    </span>
+                  </div>
+                  <div className="h-1.5 bg-slate-700/60 rounded-full overflow-hidden border border-emerald-500/20">
+                    <div
+                      className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full shadow-lg shadow-emerald-500/50 transition-all duration-500"
+                      style={{ width: `${market.yesPrice}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* NO Price */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-400 shadow-lg shadow-red-400/50"></div>
+                  <span className="text-xs font-bold text-red-300 uppercase tracking-wider">NO</span>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-3xl font-black bg-gradient-to-r from-red-300 to-red-400 bg-clip-text text-transparent">
+                      {noPrice}¢
+                    </span>
+                  </div>
+                  <div className="h-1.5 bg-slate-700/60 rounded-full overflow-hidden border border-red-500/20">
+                    <div
+                      className="h-full bg-gradient-to-r from-red-400 to-red-500 rounded-full shadow-lg shadow-red-500/50 transition-all duration-500"
+                      style={{ width: `${noPrice}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="space-y-2.5 flex-1">
+            <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center gap-2 text-slate-400">
+                <Volume2 className="w-4 h-4 text-emerald-400/60" />
+                <span className="font-medium">Volume</span>
+              </div>
+              <span className="font-bold text-white">{formatVolume(market.volume)}</span>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center gap-2 text-slate-400">
+                <Clock className="w-4 h-4 text-cyan-400/60" />
+                <span className="font-medium">Closes In</span>
+              </div>
+              <span className={`font-bold ${daysUntil > 7 ? 'text-white' : daysUntil > 0 ? 'text-amber-400' : 'text-red-400'}`}>
+                {daysUntil > 0 ? `${daysUntil}d` : "Ended"}
+              </span>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="pt-2 border-t border-slate-700/50">
+            <button className="w-full py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50 text-sm">
+              Trade Now
+            </button>
           </div>
         </div>
-
-        {/* CTA Button */}
-        <button className="w-full bg-brand-success hover:bg-emerald-600 text-white font-bold py-2.5 rounded-lg transition-all duration-200 hover:shadow-sm active:scale-95">
-          Trade
-        </button>
       </div>
     </Link>
   );
