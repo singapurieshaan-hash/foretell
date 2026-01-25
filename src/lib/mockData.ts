@@ -4,6 +4,7 @@ export const mockMarkets: Market[] = [
   {
     id: "1",
     title: "Will Bitcoin reach $100k by end of 2025?",
+    slug: "bitcoin-100k-2025",
     description:
       "Resolves YES if Bitcoin closes at $100,000 USD or higher on any day before December 31, 2025.",
     category: "Crypto",
@@ -12,10 +13,16 @@ export const mockMarkets: Market[] = [
     volume: 2500000,
     creatorId: "user-1",
     creatorName: "Alex Chen",
+    rules: "Resolves YES if Bitcoin closes at $100,000 USD or higher on any day before December 31, 2025. Resolution source: CoinMarketCap closing price.",
+    resolutionSource: {
+      type: "exchange_price",
+      exchangeName: "CoinMarketCap",
+    },
   },
   {
     id: "2",
     title: "Will the S&P 500 exceed 6000 in 2025?",
+    slug: "sp500-6000-2025",
     description:
       "Resolves YES if the S&P 500 closes above 6000 points on any day in 2025.",
     category: "Markets",
@@ -24,10 +31,16 @@ export const mockMarkets: Market[] = [
     volume: 1800000,
     creatorId: "user-2",
     creatorName: "Sarah Mitchell",
+    rules: "Resolves YES if the S&P 500 closes above 6000 points on any day in 2025. Resolution source: Yahoo Finance closing price.",
+    resolutionSource: {
+      type: "exchange_price",
+      exchangeName: "Yahoo Finance",
+    },
   },
   {
     id: "3",
     title: "Will the Kansas City Chiefs win Super Bowl LX?",
+    slug: "chiefs-superbowl-2025",
     description:
       "Resolves YES if the Kansas City Chiefs win Super Bowl LX (February 2025).",
     category: "Sports",
@@ -36,10 +49,16 @@ export const mockMarkets: Market[] = [
     volume: 950000,
     creatorId: "user-3",
     creatorName: "Jordan sports",
+    rules: "Resolves YES if the Kansas City Chiefs win Super Bowl LX on February 9, 2025. Resolution source: Official NFL announcement.",
+    resolutionSource: {
+      type: "official_url",
+      url: "https://www.nfl.com",
+    },
   },
   {
     id: "4",
     title: "Will OpenAI release GPT-5 before December 2025?",
+    slug: "openai-gpt5-2025",
     description:
       "Resolves YES if OpenAI releases a model called GPT-5 or later before December 31, 2025.",
     category: "Culture",
@@ -48,10 +67,16 @@ export const mockMarkets: Market[] = [
     volume: 620000,
     creatorId: "user-4",
     creatorName: "Tech Observer",
+    rules: "Resolves YES if OpenAI releases a model called GPT-5 or later before December 31, 2025. Resolution source: Official OpenAI announcements.",
+    resolutionSource: {
+      type: "official_url",
+      url: "https://openai.com",
+    },
   },
   {
     id: "5",
     title: "Will Ethereum reach $5000 by June 2025?",
+    slug: "ethereum-5000-2025",
     description:
       "Resolves YES if Ethereum closes at $5000 USD or higher on any day before June 30, 2025.",
     category: "Crypto",
@@ -60,10 +85,16 @@ export const mockMarkets: Market[] = [
     volume: 1200000,
     creatorId: "user-1",
     creatorName: "Alex Chen",
+    rules: "Resolves YES if Ethereum closes at $5000 USD or higher on any day before June 30, 2025. Resolution source: CoinMarketCap.",
+    resolutionSource: {
+      type: "exchange_price",
+      exchangeName: "CoinMarketCap",
+    },
   },
   {
     id: "6",
     title: "Will the Fed cut rates below 3% in 2025?",
+    slug: "fed-rates-2025",
     description:
       "Resolves YES if the Federal Reserve's federal funds rate drops below 3% by December 31, 2025.",
     category: "Markets",
@@ -72,6 +103,11 @@ export const mockMarkets: Market[] = [
     volume: 880000,
     creatorId: "user-5",
     creatorName: "Economics Daily",
+    rules: "Resolves YES if the Federal Reserve's federal funds rate drops below 3% by December 31, 2025. Resolution source: Official Federal Reserve announcements.",
+    resolutionSource: {
+      type: "official_url",
+      url: "https://www.federalreserve.gov",
+    },
   },
 ];
 
